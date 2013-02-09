@@ -26,7 +26,7 @@ if type yum >/dev/null 2>&1; then
 fi
 
 if [[ ! -d phantomjs ]]; then
-    git clone git://github.com/ariya/phantomjs.git
+    git clone git://github.com/kuahyeow/phantomjs.git
 fi
 
 cd phantomjs
