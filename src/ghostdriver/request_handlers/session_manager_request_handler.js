@@ -167,7 +167,8 @@ ghostdriver.SessionManagerReqHand = function() {
     };
 
     // Regularly cleanup un-used sessions
-    setInterval(_cleanupWindowlessSessions, _CLEANUP_WINDOWLESS_SESSIONS_TIMEOUT); //< every 60s
+    // YTK: Comment out call below to see if it does not cause timeouts anymore
+    // setInterval(_cleanupWindowlessSessions, _CLEANUP_WINDOWLESS_SESSIONS_TIMEOUT); //< every 60s
 
     // public:
     return {
