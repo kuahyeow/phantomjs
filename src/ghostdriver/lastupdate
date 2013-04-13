@@ -1,16 +1,7 @@
-2013-02-09 00:54:55
+2013-04-13 23:02:26
 
-commit 8b93e6a879b3ac64a2ee3f5541b2305b4d9c1b87 (HEAD)
-Author: Gary Donovan <gazimon@gmail.com>
-Date:   Tue Jan 8 11:49:26 2013 +1100
+commit ba866de0a064eb74d211e30cdee458d7d11b1ea6 (HEAD, refs/remotes/origin/1.0.2-with-patches, refs/heads/1.0.2-with-patches)
+Author: Thong Kuah <kuahyeow@gmail.com>
+Date:   Sat Apr 13 22:58:56 2013 +1200
 
-    Schedule the pageLoadNotTriggered timer *after* script execution.
-    
-    If the target function loads the page, then this will be completed by the
-    time pageLoadNotTriggered is scheduled. So the effect is to make
-    _execFuncAndWaitForLoadDecorator more deterministic (since any synchronous
-    loading will definitely be detected and handled correctly).
-    
-    Tidy up comments:
-    * Clarify some of the circumstances in which onErrorFunc might be called.
-    * Fix mistakes in comment.
+    Output to console useful network resources being requested and still awaiting, and complete to see if we can debug timeout issues

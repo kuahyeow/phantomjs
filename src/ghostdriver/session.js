@@ -290,6 +290,43 @@ ghostdriver.Session = function(desiredCapabilities) {
         }
     },
 
+
+    _decorateNetworkMonitor = function(page) {
+        page.resources = [];
+
+        page.onResourceRequested = function (req) {
+            page.resources[req.id] = {
+                request: req,
+                startReply: null,
+                endReply: null
+            };
+            console.log(page.windowHandle + ' ' + req.url + ' requested...')
+        };
+
+        page.onResourceReceived = function (res) {
+            if (res.stage === 'start') {
+                page.resources[res.id].startReply = res;
+            }
+            if (res.stage === 'end') {
+                page.resources[res.id].endReply = res;
+                console.log(page.windowHandle + ' ' + res.url + ' received')
+
+                // Hijack here to report on things still awaiting
+                page.resources.forEach(function (resource) {
+                    var request = resource.request,
+                        startReply = resource.startReply,
+                        endReply = resource.endReply;
+
+                    if (request && !endReply) {
+                        console.log(page.windowHandle + ' ' + resource.request.url + ' still waiting...')
+                    }
+                });
+
+            }
+        };
+
+    },
+
     _decorateNewWindow = function(page) {
         var k;
 
@@ -319,6 +356,8 @@ ghostdriver.Session = function(desiredCapabilities) {
                 page.settings[k] = _pageSettings[k];
             }
         }
+
+        _decorateNetworkMonitor(page);
 
         // page.onConsoleMessage = function(msg) { console.log(msg); };
         // console.log("New Window/Page settings: " + JSON.stringify(page.settings, null, "  "));
