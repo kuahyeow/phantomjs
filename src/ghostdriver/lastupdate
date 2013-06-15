@@ -1,15 +1,21 @@
-2013-03-18 01:28:52
+2013-06-16 11:46:50
 
-commit 2792939c149829d03e7ed07cd6f03f5fd7e73ef4 (HEAD, tag: refs/tags/1.0.3, refs/remotes/origin/master, refs/remotes/origin/HEAD, refs/heads/master)
+commit 31fe2c7a459fd6d24521559afdcb03cdc7a3d269 (HEAD, refs/remotes/origin/1.0.3-with-patches, refs/heads/1.0.3-with-patches)
 Author: Ivan De Marino <ivan.de.marino@gmail.com>
-Date:   Mon Mar 18 01:27:12 2013 +0000
+Date:   Wed Jun 12 21:57:45 2013 -0400
 
-    Java Binding JAR 1.0.3 now ready.
+    Ignore page load failures initiated by Click action.
     
-    Can be added to a Maven project with:
+    If the click finishes, it's finished.
+    The fact that the expected destination page didn't load it's irrelevant.
     
-    <dependency>
-        <groupId>com.github.detro.ghostdriver</groupId>
-        <artifactId>phantomjsdriver</artifactId>
-        <version>1.0.3</version>
-    </dependency>
+    This implies that, in case a "onLoadFinished" occurred
+    but resulting "status === 'fail'" we have to ignore it.
+    
+    This is how Chrome and Firefox Drivers seem to behave…
+    
+    Fixes #202.
+    Conflicts:
+    	test/java/src/test/java/ghostdriver/ElementMethodsTest.java
+    
+    (cherry-picked from d0615a547f5a036df3134ef946c33d972c384aac)
